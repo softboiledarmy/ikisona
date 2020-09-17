@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -17,6 +25,9 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
+
+
+
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
@@ -24,6 +35,10 @@
 
     <include
         layout="@layout/list_module"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <include
+        layout="@layout/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </androidx.drawerlayout.widget.DrawerLayout>
