@@ -37,4 +37,8 @@
         layout="@layout/list_module"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <include
+        layout="@layout/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </androidx.drawerlayout.widget.DrawerLayout>

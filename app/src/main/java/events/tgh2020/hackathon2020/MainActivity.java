@@ -1,11 +1,14 @@
 package events.tgh2020.hackathon2020;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -87,17 +90,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final EditText praise = findViewById(R.id.praise);
-        final TextView textView = findViewById(R.id.praisetextView);
         final Button button = findViewById(R.id.button);
+        final ImageView avater_nani = findViewById(R.id.avater_nani);
 
         //plus押したら現れる
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setVisibility(View.VISIBLE);
                 button.setVisibility(View.VISIBLE);
                 praise.setVisibility(View.VISIBLE);
+                avater_nani.setVisibility(view.VISIBLE);
 
 
             }
@@ -107,13 +110,31 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //キーボード非表示
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 final String task = praise.getText().toString();
+                //リストに追加
                 noodleList.add(task);
                 listView.setAdapter(arrayAdapter);
                 praise.setText("");
                 button.setVisibility(View.INVISIBLE);
-                textView.setVisibility(View.INVISIBLE);
                 praise.setVisibility(View.INVISIBLE);
+                avater_nani.setVisibility(View.INVISIBLE);
+                avater_nani.setImageResource(R.drawable.avater_fight);
+                avater_nani.setVisibility(View.VISIBLE);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO: ここで処理を実行する
+                        avater_nani.setImageResource(R.drawable.avater_nanisiyo);
+                        avater_nani.setVisibility(View.INVISIBLE);
+
+                    }
+                }, 5000);
+
+
 
 
 
