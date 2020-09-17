@@ -1,8 +1,15 @@
 package events.tgh2020.hackathon2020;
 
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -45,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        final Avatar avatar = new Avatar((ImageView)findViewById(R.id.avatar_body), (TextView)findViewById(R.id.avatar_talk));
+
     }
 
     @Override
@@ -59,5 +69,17 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+    
+    public void avatarToast(Avatar avatar) {
+        // avatar.sayPraise();
+
+        View v = this.getLayoutInflater().inflate(R.layout.toast_avatar, null);
+
+        Toast toast = new Toast(getApplicationContext());
+        // toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(v);
+        toast.show();
     }
 }
