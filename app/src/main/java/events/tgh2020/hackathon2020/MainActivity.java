@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-///////////////////////////////////////////////////////////
+        /////////ここから金井////////////////////////////////
         // ListViewに表示する項目を生成
         final ArrayList<String> noodleList= new ArrayList<>();
         noodleList.add("ごはんたべる");
@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(arrayAdapter);
 
+
+        //***** 消したことのStringを返す*****//
+        final String deleteItem;
+        //********************************//
+
         // リスト項目を長押しクリックした時の処理
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             /**
@@ -70,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
              * @param id 選択した項目のID
              */
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String deleteItem = (String)((TextView)view).getText();
+                deleteItem = (String)((TextView)view).getText();
 
                 // 項目を追加する
 //                arrayAdapter.add("「"+deleteItem + "」を達成したよ！");
@@ -82,12 +87,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ///////////////////////////////////////////
         final EditText praise = findViewById(R.id.praise);
         final TextView textView = findViewById(R.id.praisetextView);
         final Button button = findViewById(R.id.button);
 
-
+        //plus押したら現れる
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //Enter押したら消える
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        ///////////////////////////////////////////
+
+
+        //////////////ここまで金井/////////////////////
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
