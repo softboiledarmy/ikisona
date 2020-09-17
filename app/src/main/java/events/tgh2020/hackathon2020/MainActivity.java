@@ -63,10 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //***** 消したことのStringを返す*****//
-        final String deleteItem;
         //********************************//
 
-        // リスト項目を長押しクリックした時の処理
+        // リスト項目を長押しクリックした時の処理。ここでリストが消える
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             /**
              * @param parent ListView
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
              * @param id 選択した項目のID
              */
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                deleteItem = (String)((TextView)view).getText();
+                String deleteItem = (String)((TextView)view).getText();
 
                 // 項目を追加する
 //                arrayAdapter.add("「"+deleteItem + "」を達成したよ！");
