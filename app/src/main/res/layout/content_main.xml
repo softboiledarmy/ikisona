@@ -7,17 +7,29 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
 
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="75dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+
     <LinearLayout
         android:id="@+id/task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ListView
-            android:layout_width="377dp"
-            android:layout_height="61dp" >
-
-        </ListView>
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/todolist" />
 
         <fragment
             android:id="@+id/nav_host_fragment"
@@ -27,7 +39,6 @@
             android:layout_marginTop="48dp"
             app:defaultNavHost="true"
             app:navGraph="@navigation/mobile_navigation" />
-
 
 
     </LinearLayout>

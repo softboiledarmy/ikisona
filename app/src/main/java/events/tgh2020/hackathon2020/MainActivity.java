@@ -44,12 +44,14 @@ public class MainActivity extends AppCompatActivity {
         /////////ここから金井////////////////////////////////
         // ListViewに表示する項目を生成
         final ArrayList<String> noodleList= new ArrayList<>();
+
         noodleList.add("ごはんたべる");
         noodleList.add("あさおきる");
         noodleList.add("本を40P読む");
         noodleList.add("先輩にメールを出す");
         noodleList.add("出前を注文する");
         noodleList.add("ホームパーティーを開く");
+
 
         /**
          * Adapterを生成
