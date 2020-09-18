@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
             }else if(gobi1.equals("る")){
                 reply_message = task.substring(0,task.length()-1)+"てすごい！";
             }else{
-                final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！","神！"};
+                final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！","神！","すてき！"};
                 int randomIndex = r.nextInt(talkStringArray.length);
                 reply_message = talkStringArray[randomIndex];
             }
