@@ -55,13 +55,12 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    final PraiseBot pBot = new PraiseBot();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final PraiseBot pBot = new PraiseBot();
 
         /////////ここから金井////////////////////////////////
         // ListViewに表示する項目を生成
@@ -100,11 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 String deleteItem = (String)((TextView)view).getText();
 
                 //ここ一行だけ狩野
-                avatarToast(pBot.getTalk(), pBot.getBody());
-                /*
+                //avatarToast(pBot.getTalk(), pBot.getBody());
+
                 Avatar a = new Avatar();
-                a.execute();
-                 */
+                a.execute(deleteItem);
 
                 // 項目を追加する
 //                arrayAdapter.add("「"+deleteItem + "」を達成したよ！");
@@ -231,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(talkString);
         tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.RED);
-        tv.setTextSize(50.0f);
+        tv.setTextSize(25.0f);
         FrameLayout.LayoutParams tvLp = new FrameLayout.LayoutParams(MP,MP);
         tvLp.bottomMargin = 410;
         tvLp.gravity = Gravity.CENTER;
@@ -260,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*うまくいかないので保留 使用時はAndroidManifest.xmlの<uses-permission android:name="android.permission.INTERNET" />を有効に
+    //うまくいかないので保留 使用時はAndroidManifest.xmlの<uses-permission android:name="android.permission.INTERNET" />を有効に
     private class Avatar extends AsyncTask<String, String, String> {
         /**
          * バックグラウンドスレッドで、HTTP通信を行い、応答データを取得して文字列として返す。
@@ -268,13 +266,13 @@ public class MainActivity extends AppCompatActivity {
          *
          * @param string
          * @return
-         /
+         */
         @Override
         protected String doInBackground(String... string) {
             StringBuilder rawResult = new StringBuilder();
             try {
-                String finishedTask = "勉強した";
-                String json = "{'question':" + finishedTask + "}";
+                String finishedTask = string[0];
+                String json = "{\"question\":\"" + finishedTask + "\"}";
 
                 Map<String, String> httpHeaders = new LinkedHashMap<String, String>();
                 httpHeaders.put("Authorization", "EndpointKey 7ff5e408-ed17-499d-a169-d88367e5123e");
@@ -303,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
          * 文字列をいったんJSONに変換してから、適切な項目をUIに貼り付けています。
          *
          * @param result
-         /
+         */
         @Override
         protected void onPostExecute(String result) {
             try {
@@ -312,12 +310,12 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject o = answers.getJSONObject(0);
                 String s = o.getString("answer");
 
-                avatarToast(s, R.drawable.superluck);
+                avatarToast(s, pBot.getBody());
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
-     */
+
 }
