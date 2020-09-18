@@ -15,7 +15,9 @@
 
         <ListView
             android:layout_width="377dp"
-            android:layout_height="61dp" />
+            android:layout_height="61dp" >
+
+        </ListView>
 
         <fragment
             android:id="@+id/nav_host_fragment"
