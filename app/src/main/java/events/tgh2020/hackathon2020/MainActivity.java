@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //deleteItem[0] = (String)((TextView)view).getText();
                 String deleteItem = (String)((TextView)view).getText();
+
                 Avatar a = new Avatar();
                 a.execute(deleteItem);
 
