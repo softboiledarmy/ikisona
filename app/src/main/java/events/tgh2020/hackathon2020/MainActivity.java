@@ -71,8 +71,11 @@ public class MainActivity extends AppCompatActivity {
         noodleList.add("本を40P読む");
         noodleList.add("先輩にメールを出す");
         noodleList.add("出前を注文する");
-        noodleList.add("ホームパーティーを開く");
 
+        noodleList.add("線形代数の課題をやる");
+        noodleList.add("腹筋30回やる");
+        noodleList.add("レストラン予約する");
+        noodleList.add("10時からのmtgに出席する");
 
         /**
          * Adapterを生成
@@ -244,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class PraiseBot {
         private final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！", "やったね！"};
-        private final int[] bodyIdArray = {/*R.drawable.avater_pink,*/ R.drawable.avater_pink2, R.drawable.avater_pink3};
+        private final int[] bodyIdArray = {R.drawable.avater_pink, R.drawable.avater_pink2, R.drawable.avater_pink3};
         private Random r = new Random();
 
         public String getTalk(String task) {
