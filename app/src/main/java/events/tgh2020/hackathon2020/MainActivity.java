@@ -231,9 +231,11 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = new TextView(this);
         tv.setText(talkString);
         tv.setGravity(Gravity.CENTER);
-        tv.setTextColor(Color.RED);
+        //tv.setTextColor(Color.RED);
+        //tv.setBackgroundColor(Color.LTGRAY);
+        tv.setBackground(getResources().getDrawable(R.drawable.pink_hukidasi_sennnasi));
         tv.setTextSize(25.0f);
-        FrameLayout.LayoutParams tvLp = new FrameLayout.LayoutParams(MP,MP);
+        FrameLayout.LayoutParams tvLp = new FrameLayout.LayoutParams(MP,WC);
         tvLp.bottomMargin = 410;
         tvLp.gravity = Gravity.CENTER;
         fl.addView(tv, tvLp);
