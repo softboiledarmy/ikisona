@@ -2,6 +2,7 @@ package events.tgh2020.hackathon2020;
 
 import android.graphics.Color;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,8 +29,28 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.ArrayList;
+
+import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
                 //ここ一行だけ狩野
                 avatarToast(pBot.getTalk(), pBot.getBody());
+                /*
+                Avatar a = new Avatar();
+                a.execute();
+                 */
 
                 // 項目を追加する
 //                arrayAdapter.add("「"+deleteItem + "」を達成したよ！");
@@ -139,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
             }
         });
 
@@ -187,32 +212,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
-    // private final int MP = ViewGroup.LayoutParams.MATCH_PARENT;
+    private final int MP = ViewGroup.LayoutParams.MATCH_PARENT;
     public void avatarToast(String talkString, int bodyId) {
-        LinearLayout ll = new LinearLayout(this);
-        ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setGravity(Gravity.CENTER);
+        FrameLayout fl = new FrameLayout(this);
+        /*
+        lp.topMargin = 上margin;
+        lp.bottomMargin = 下margin;
+        lp.leftMargin = 左margin;
+        lp.rightMargin = 右margin;
+         */
+        ImageView iv = new ImageView(this);
+        iv.setImageResource(bodyId);
+        FrameLayout.LayoutParams ivLp = new FrameLayout.LayoutParams(MP,MP);
+        ivLp.gravity = Gravity.CENTER;
+        fl.addView(iv, ivLp);
 
         TextView tv = new TextView(this);
         tv.setText(talkString);
+        tv.setGravity(Gravity.CENTER);
         tv.setTextColor(Color.RED);
         tv.setTextSize(50.0f);
-        ll.addView(tv, new LinearLayout.LayoutParams(WC, WC));
-
-        ImageView iv = new ImageView(this);
-        iv.setImageResource(bodyId);
-        ll.addView(iv, new LinearLayout.LayoutParams(WC, WC));
+        FrameLayout.LayoutParams tvLp = new FrameLayout.LayoutParams(MP,MP);
+        tvLp.bottomMargin = 410;
+        tvLp.gravity = Gravity.CENTER;
+        fl.addView(tv, tvLp);
 
         Toast toast = new Toast(this);
         // toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(ll);
+        toast.setView(fl);
         toast.show();
     }
 
     private class PraiseBot {
-        private final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！"};
-        private final int[] bodyIdArray = {R.drawable.superluck};
+        private final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！", "やったね！"};
+        private final int[] bodyIdArray = {R.drawable.avater_pink, R.drawable.avater_pink2, R.drawable.avater_pink3};
         private Random r = new Random();
 
         public String getTalk() {
@@ -226,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /* うまくいかないので保留 使用時はAndroidManifest.xmlの<uses-permission android:name="android.permission.INTERNET" />を有効に
+    /*うまくいかないので保留 使用時はAndroidManifest.xmlの<uses-permission android:name="android.permission.INTERNET" />を有効に
     private class Avatar extends AsyncTask<String, String, String> {
         /**
          * バックグラウンドスレッドで、HTTP通信を行い、応答データを取得して文字列として返す。
@@ -238,38 +272,29 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... string) {
             StringBuilder rawResult = new StringBuilder();
-
             try {
-                URL url = new URL("https://ikisona-qna.azurewebsites.net/qnamaker/knowledgebases/75c7ab9d-458a-47de-9a10-9fa2a1453a0f/generateAnswer/");
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("POST");
-                con.setRequestProperty("Authorization", "EndpointKey 7ff5e408-ed17-499d-a169-d88367e5123e");
-                con.setRequestProperty("Content-type", "application/json");
-
-                String finishedTask = ((EditText)findViewById(R.id.etQ)).getText().toString();
+                String finishedTask = "勉強した";
                 String json = "{'question':" + finishedTask + "}";
-                final OutputStream out = con.getOutputStream();
-                final PrintStream ps = new PrintStream(out, true, "UTF-8");
-                ps.print(json);
-                ps.close();
 
-                con.connect();
-
-                final int responseCode = con.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-
-                    BufferedReader br =
-                            new BufferedReader(
-                                    new InputStreamReader(con.getInputStream()));
-
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        rawResult.append(line);
-                    }
-                }
+                Map<String, String> httpHeaders = new LinkedHashMap<String, String>();
+                httpHeaders.put("Authorization", "EndpointKey 7ff5e408-ed17-499d-a169-d88367e5123e");
+                MediaType mediaTypeJson = MediaType.parse("application/json;");
+                RequestBody requestBody = RequestBody.create(mediaTypeJson, json);
+                Request request = new Request.Builder()
+                        .url("https://ikisona-qna.azurewebsites.net/qnamaker/knowledgebases/75c7ab9d-458a-47de-9a10-9fa2a1453a0f/generateAnswer/")
+                        .headers(Headers.of(httpHeaders))
+                        .post(requestBody)
+                        .build();
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .build();
+                Response response = client.newCall(request).execute();
+                int responseCode = response.code();
+                System.out.println("responseCode: " + responseCode);
+                rawResult.append(response.body().string());
             } catch (Exception e) { // 正確には、IOExceptionとMalformedURLExceptionが起こりえます。
                 e.printStackTrace();
             }
+
             return rawResult.toString();
         }
 
@@ -284,15 +309,15 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSONObject jsonRoot = new JSONObject(result);
                 JSONArray answers = jsonRoot.getJSONArray("answers");
-
                 JSONObject o = answers.getJSONObject(0);
                 String s = o.getString("answer");
 
                 avatarToast(s, R.drawable.superluck);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
-    */
+     */
 }
