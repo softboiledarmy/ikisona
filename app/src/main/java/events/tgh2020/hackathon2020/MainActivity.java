@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //***** 消したことのStringを返す*****//
-        final String deleteItem;
+        final String[] deleteItem = new String[1];
         //********************************//
 
         // リスト項目を長押しクリックした時の処理
@@ -75,13 +75,13 @@ public class MainActivity extends AppCompatActivity {
              * @param id 選択した項目のID
              */
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                deleteItem = (String)((TextView)view).getText();
+                deleteItem[0] = (String)((TextView)view).getText();
 
                 // 項目を追加する
 //                arrayAdapter.add("「"+deleteItem + "」を達成したよ！");
 
                 // 選択した項目を削除する
-                arrayAdapter.remove(deleteItem);
+                arrayAdapter.remove(deleteItem[0]);
 
                 return false;
             }
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
