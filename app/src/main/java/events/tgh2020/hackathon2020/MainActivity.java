@@ -102,14 +102,10 @@ public class MainActivity extends AppCompatActivity {
                 //deleteItem[0] = (String)((TextView)view).getText();
                 String deleteItem = (String)((TextView)view).getText();
                 //ここ一行だけ狩野
-<<<<<<< HEAD
-                //avatarToast(pBot.getTalk(), pBot.getBody());
 
                 Avatar a = new Avatar();
                 a.execute(deleteItem);
-=======
-                avatarToast(pBot.getTalk(deleteItem), pBot.getBody());
->>>>>>> af6d1716ed94f863755702ecd9fbbcda9f5dc53d
+
 
                 // 項目を追加する
 //                arrayAdapter.add("「"+deleteItem + "」を達成したよ！");
@@ -250,13 +246,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class PraiseBot {
-<<<<<<< HEAD
         private final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！", "やったね！"};
         private final int[] bodyIdArray = {R.drawable.avater_pink, R.drawable.avater_pink2, R.drawable.avater_pink3};
-=======
 
-        private final int[] bodyIdArray = {R.drawable.superluck};
->>>>>>> af6d1716ed94f863755702ecd9fbbcda9f5dc53d
         private Random r = new Random();
 
         public String getTalk(String task) {
