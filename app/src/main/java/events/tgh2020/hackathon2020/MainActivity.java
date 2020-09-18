@@ -65,12 +65,14 @@ public class MainActivity extends AppCompatActivity {
         /////////ここから金井////////////////////////////////
         // ListViewに表示する項目を生成
         final ArrayList<String> noodleList= new ArrayList<>();
+
         noodleList.add("ごはんたべる");
         noodleList.add("あさおきる");
         noodleList.add("本を40P読む");
         noodleList.add("先輩にメールを出す");
         noodleList.add("出前を注文する");
         noodleList.add("ホームパーティーを開く");
+
 
         /**
          * Adapterを生成
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //***** 消したことのStringを返す*****//
+        //final String[] deleteItem = new String[1];
         //********************************//
 
         // リスト項目を長押しクリックした時の処理。ここでリストが消える
@@ -96,13 +99,17 @@ public class MainActivity extends AppCompatActivity {
              * @param id 選択した項目のID
              */
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //deleteItem[0] = (String)((TextView)view).getText();
                 String deleteItem = (String)((TextView)view).getText();
-
                 //ここ一行だけ狩野
+<<<<<<< HEAD
                 //avatarToast(pBot.getTalk(), pBot.getBody());
 
                 Avatar a = new Avatar();
                 a.execute(deleteItem);
+=======
+                avatarToast(pBot.getTalk(deleteItem), pBot.getBody());
+>>>>>>> af6d1716ed94f863755702ecd9fbbcda9f5dc53d
 
                 // 項目を追加する
 //                arrayAdapter.add("「"+deleteItem + "」を達成したよ！");
@@ -187,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -243,13 +250,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class PraiseBot {
+<<<<<<< HEAD
         private final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！", "やったね！"};
         private final int[] bodyIdArray = {R.drawable.avater_pink, R.drawable.avater_pink2, R.drawable.avater_pink3};
+=======
+
+        private final int[] bodyIdArray = {R.drawable.superluck};
+>>>>>>> af6d1716ed94f863755702ecd9fbbcda9f5dc53d
         private Random r = new Random();
 
-        public String getTalk() {
-            int randomIndex = r.nextInt(talkStringArray.length);
-            return talkStringArray[randomIndex];
+        public String getTalk(String task) {
+            String gobi2 = task.substring(task.length()-2,task.length());
+            String gobi1 = task.substring(task.length()-1,task.length());
+            String reply_message = "";
+            if(gobi2.equals("する")){
+                reply_message = task.substring(0,task.length()-2)+"してえらい！";
+            }else if(gobi1.equals("る")){
+                reply_message = task.substring(0,task.length()-1)+"てすごい！";
+            }else{
+                final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！","神！"};
+                int randomIndex = r.nextInt(talkStringArray.length);
+                reply_message = talkStringArray[randomIndex];
+            }
+            return reply_message;
         }
 
         public int getBody() {
