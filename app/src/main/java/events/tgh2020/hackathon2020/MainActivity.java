@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
         // ListViewに表示する項目を生成
         final ArrayList<String> noodleList= new ArrayList<>();
 
-        noodleList.add("ごはんたべる");
-        noodleList.add("あさおきる");
+
         noodleList.add("本を40P読む");
         noodleList.add("先輩にメールを出す");
         noodleList.add("出前を注文する");
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                         avater_nani.setVisibility(View.INVISIBLE);
 
                     }
-                }, 5000);
+                }, 3000);
 
 
 
