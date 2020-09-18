@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 //deleteItem[0] = (String)((TextView)view).getText();
                 String deleteItem = (String)((TextView)view).getText();
                 //ここ一行だけ狩野
-                avatarToast(pBot.getTalk(), pBot.getBody());
+                avatarToast(pBot.getTalk(deleteItem), pBot.getBody());
 
                 // 項目を追加する
 //                arrayAdapter.add("「"+deleteItem + "」を達成したよ！");
@@ -214,13 +214,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class PraiseBot {
-        private final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！"};
+
         private final int[] bodyIdArray = {R.drawable.superluck};
         private Random r = new Random();
 
-        public String getTalk() {
-            int randomIndex = r.nextInt(talkStringArray.length);
-            return talkStringArray[randomIndex];
+        public String getTalk(String task) {
+            String gobi2 = task.substring(task.length()-2,task.length());
+            String gobi1 = task.substring(task.length()-1,task.length());
+            String reply_message = "";
+            if(gobi2.equals("する")){
+                reply_message = task.substring(0,task.length()-2)+"してえらい！";
+            }else if(gobi1.equals("る")){
+                reply_message = task.substring(0,task.length()-1)+"てすごい！";
+            }else{
+                final String[] talkStringArray = {"すごい！", "えらい！", "がんばった！","神！"};
+                int randomIndex = r.nextInt(talkStringArray.length);
+                reply_message = talkStringArray[randomIndex];
+            }
+            return reply_message;
         }
 
         public int getBody() {
